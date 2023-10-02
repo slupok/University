@@ -23,7 +23,7 @@ def compressedImage(image):
     return compressedImage
 
 def readImage(fileName):
-    os.chdir('c:/University/Neural Network/First lab')
+    os.chdir('University/Neural Network/First lab')
     im = Image.open(fileName)
     image = numpy.asarray(im)
     return compressedImage(image)
@@ -60,7 +60,7 @@ def modifyWeights(X, W, error):
     next_W = W + lerning_rate * error * X
     return next_W
 
-def run(fileName, Y_true):
+def run(fileName):
     #Input X
     X = readImage(fileName)
     
@@ -75,8 +75,13 @@ def run(fileName, Y_true):
 
     #Compute Y
     Y = F(X, W)
-    print("Крестик" if Y == 1 else "Нолик")
-
+    print("Семерка" if Y == 1 else "Нолик")
+    
+    isTrue = input('Верно? (y/n): ').lower().strip() == 'y'
+    if(isTrue):
+        return
+    
+    Y_true = 1 if Y == 0 else 0
     error = Y_true - Y
     if error != 0:
         W = modifyWeights(X, W, error)
@@ -90,8 +95,8 @@ parser.add_argument('-f', '--filename')
 parser.add_argument('-y', '--trueResult')
 args = parser.parse_args()
 
-# крестик = 1
+# семерка = 1
 # нолик = 0
-Y_true = 1 if (args.trueResult is None) else args.trueResult
-fileName = 'img/X1.png' if (args.filename is None) else args.filename
-run(fileName, Y_true)
+
+fileName = 'img/O1.png' if (args.filename is None) else args.filename
+run(fileName)
